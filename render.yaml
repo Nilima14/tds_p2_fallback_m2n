@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: tds-data-analyst-agent
+    env: python
+    plan: free    # change to starter/standard if needed
+    region: oregon  # or frankfurt, singapore, etc.
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GOOGLE_API_KEY
+        sync: false   # You will add the real key in Render Dashboard
+      - key: LLM_TIMEOUT_SECONDS
+        value: "250"
+      - key: GOOGLE_MODEL
+        value: "gemini-2.5-pro"
